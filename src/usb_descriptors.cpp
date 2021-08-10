@@ -182,6 +182,7 @@ uint16_t const *__wrap_tud_descriptor_string_cb(uint8_t index, uint16_t langid)
 
     return _desc_str;
 }
+}
 
 #endif
 #endif

@@ -1,6 +1,6 @@
-#include "Arduino.h"
-#include "esptinyusb.h"
 #include "webusb.h"
+
+#if CFG_TUD_VENDOR
 
 static bool web_serial_connected = false;
 static WebUSB *_webUSB = NULL;
@@ -206,3 +206,6 @@ extern "C"
     }
 
 }
+
+#endif
+

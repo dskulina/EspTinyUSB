@@ -2,9 +2,9 @@
  * Simple HID mouse
  * author: chegewara
  */
-#include "Arduino.h"
-#include "hidmouse.h"
 
+#include "hidmouse.h"
+#if CFG_TUD_HID
 HIDmouse mouse;
 
 void setup()
@@ -29,3 +29,5 @@ void loop()
     mouse.scrollDown(1);
     delay(1000);
 }
+
+#endif

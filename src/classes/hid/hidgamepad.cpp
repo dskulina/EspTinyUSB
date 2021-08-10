@@ -1,7 +1,6 @@
-#include "tusb.h"
-
 #include "hidgamepad.h"
 #define EPNUM_HID   0x03
+#if CFG_TUD_HID
 
 HIDgamepad::HIDgamepad(uint8_t id)
 {
@@ -64,3 +63,4 @@ void HIDgamepad::sendAll(uint16_t bt, int8_t x, int8_t y, int8_t z, int8_t rz)
     sendReport();
 }
 
+#endif

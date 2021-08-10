@@ -2,8 +2,10 @@
  * Simple HID gamepad
  * author: chegewara
  */
-#include "hidgamepad.h"
 
+
+#include "hidgamepad.h"
+#if CFG_TUD_HID
 HIDgamepad gamepad;
 
 void setup()
@@ -29,3 +31,5 @@ void loop()
     gamepad.sendAll(0xffff, 0, 0, 0, 0);
     delay(1000);
 }
+
+#endif

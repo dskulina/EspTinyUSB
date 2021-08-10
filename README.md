@@ -38,3 +38,10 @@ For platformio, make sure to add the build flags found in `platformio.ini.exampl
 
 # Contributions
 Issues and PRs are welcome.
+
+## Known issue
+Currently library is not working with vanila arduino-esp32. It is due some tinyusb callbacks cant be overriden and are used by arduino-esp32. To make it works it is required to add `__attribute__ ((weak)) ` in 3 lines in local arduino file:
+https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-tinyusb.c#L266
+https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-tinyusb.c#L275
+https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-tinyusb.c#L284
+

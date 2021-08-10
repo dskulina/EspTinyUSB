@@ -1,8 +1,6 @@
-#include "Arduino.h"
-#include "tusb.h"
-
 #include "hidmouse.h"
 #define EPNUM_HID 0x03
+#if CFG_TUD_HID
 
 HIDmouse::HIDmouse(uint8_t id)
 {
@@ -106,3 +104,5 @@ void HIDmouse::scrollDown(uint8_t val)
 {
     wheel(-1 * val, 0);
 }
+
+#endif

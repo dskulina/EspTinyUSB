@@ -2,6 +2,8 @@
 #include "esptinyusb.h"
 #include "cdcusb.h"
 
+#if CFG_TUD_CDC
+
 #define EPNUM_CDC   0x02
 
 static CDCusb* _CDCusb[2] = {};
@@ -200,6 +202,7 @@ void tud_cdc_line_state_cb(uint8_t itf, bool dtr, bool rts)
             if (reset)
             {
                 _CDCusb[itf]->persistentReset(RESTART_BOOTLOADER);
+                // esp_restart();
             }
         } else {
             lineState = CDC_LINE_IDLE;
@@ -209,7 +212,12 @@ void tud_cdc_line_state_cb(uint8_t itf, bool dtr, bool rts)
 
 void tud_cdc_line_coding_cb(uint8_t itf, cdc_line_coding_t const* p_line_coding)
 {
+    if(p_line_coding->bit_rate == 1200){
+        esp_restart();
+    }
     memcpy(&_CDCusb[itf]->coding, p_line_coding, sizeof(cdc_line_coding_t));
     if(_CDCusb[itf]->m_callbacks)
         _CDCusb[itf]->m_callbacks->onCodingChange(p_line_coding);
 }
+
+#endif

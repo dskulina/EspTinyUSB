@@ -4,9 +4,8 @@
  * Serial - used only for logging
  * Serial1 - can be used to control GPS or any other device, may be replaced with Serial
  */
-#include "Arduino.h"
 #include "cdcusb.h"
-
+#if CFG_TUD_CDC
 CDCusb USBSerial;
 
 class MyUSBCallbacks : public CDCCallbacks {
@@ -14,7 +13,6 @@ class MyUSBCallbacks : public CDCCallbacks {
     {
         int bitrate = USBSerial.getBitrate();
         Serial.printf("new bitrate: %d\n", bitrate);
-        Serial1.updateBaudRate(bitrate);
     }
 
     bool onConnect(bool dtr, bool rts)
@@ -29,7 +27,7 @@ class MyUSBCallbacks : public CDCCallbacks {
         Serial.printf("\nnew data, len %d\n", len);
         uint8_t buf[len] = {};
         USBSerial.read(buf, len);
-        Serial1.write(buf, len);
+        Serial.write(buf, len);
     }
 
     void onWantedChar(char c)
@@ -42,7 +40,6 @@ class MyUSBCallbacks : public CDCCallbacks {
 void setup()
 {
     Serial.begin(115200);
-    Serial1.begin(115200, SERIAL_8N1, 2, 3);
     USBSerial.setCallbacks(new MyUSBCallbacks());
     USBSerial.setWantedChar('x');
 
@@ -53,11 +50,13 @@ void setup()
 
 void loop()
 {
-    while (Serial1.available())
+    while (Serial.available())
     {
-        int len = Serial1.available();
+        int len = Serial.available();
         char buf1[len];
-        Serial1.read(buf1, len);
+        Serial.read(buf1, len);
         int a = USBSerial.write((uint8_t*)buf1, len);
     }
 }
+
+#endif

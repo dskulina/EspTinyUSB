@@ -2,9 +2,9 @@
  * Simple HID keyboard
  * author: chegewara
  */
-#include "Arduino.h"
-#include "hidkeyboard.h"
 
+#include "hidkeyboard.h"
+#if CFG_TUD_HID
 HIDkeyboard dev;
 
 class MyHIDCallbacks: public HIDCallbacks{
@@ -43,3 +43,5 @@ void loop()
     delay(1000);
     Serial.println(dev.sendString(String("abcdefghijklmnopqrst Uvwxyz\n"))?"OK":"FAIL");
 }
+
+#endif

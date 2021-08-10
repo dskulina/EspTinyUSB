@@ -2,9 +2,10 @@
  * Simple HID mouse and keyboard composite
  * author: chegewara
  */
-#include "Arduino.h"
-#include "hidcomposite.h"
 
+
+#include "hidcomposite.h"
+#if CFG_TUD_HID
 HIDcomposite device;
 
 void setup()
@@ -36,3 +37,5 @@ void loop()
     delay(1000);
     Serial.println(device.sendString(String("abcdefghijklmnopqrst Uvwxyz\n"))?"OK":"FAIL");    
 }
+
+#endif

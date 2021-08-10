@@ -1,8 +1,6 @@
-#include "Arduino.h"
-#include "tusb.h"
-
 #include "hidcomposite.h"
 #define EPNUM_HID 0x03
+#if CFG_TUD_HID
 
 HIDcomposite::HIDcomposite(uint8_t id)
 {
@@ -163,3 +161,5 @@ bool HIDcomposite::sendString(String text)
   return sendString(text.c_str());
 }
 /*------------- Keyboard -------------*/
+
+#endif

@@ -1,8 +1,6 @@
-#include "Arduino.h"
-#include "tusb.h"
-
 #include "hidkeyboard.h"
 #define EPNUM_HID 0x02
+#if CFG_TUD_HID
 
 HIDkeyboard::HIDkeyboard(uint8_t reportid)
 {
@@ -76,3 +74,5 @@ bool HIDkeyboard::sendString(String text)
 {
   return sendString(text.c_str());
 }
+
+#endif

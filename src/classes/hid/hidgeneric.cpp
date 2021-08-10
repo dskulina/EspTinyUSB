@@ -1,10 +1,7 @@
-#include "Arduino.h"
-#include "tusb.h"
-#include "soc/rtc_cntl_reg.h"
-
 #include "hidgeneric.h"
 #define EPNUM_HID   0x03
 #define REPORT_ID   1
+#if CFG_TUD_HID
 
 HIDgeneric::HIDgeneric(uint8_t reportid)
 {
@@ -29,3 +26,5 @@ bool HIDgeneric::begin(char* str)
   report_id = REPORT_ID;
   return EspTinyUSB::begin(str, 6);
 }
+
+#endif

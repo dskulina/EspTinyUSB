@@ -2,9 +2,9 @@
  * Simple vendor In/Out HID device
  * author: chegewara
  */
-#include "Arduino.h"
-#include "hidgeneric.h"
 
+#include "hidgeneric.h"
+#if CFG_TUD_HID
 HIDgeneric dev;
 
 class MyHIDCallbacks: public HIDCallbacks{
@@ -30,3 +30,5 @@ void loop()
     delay(1000);
     dev.write("test", 4);
 }
+
+#endif
